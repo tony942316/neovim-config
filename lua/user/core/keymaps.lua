@@ -45,6 +45,10 @@ keymapN("<C-Right>", ":vertical resize +2<CR>")
 -- give me a terminal
 keymapN("<leader>t", ":terminal<CR>")
 
+-- Quick Save
+keymapN("<leader>s", "<cmd>w<CR>")
+keymapN("<leader>q", "<cmd>NvimTreeClose<CR><cmd>wq<CR>")
+
 -----------------
 -- VISUAL MODE --
 -----------------
@@ -60,7 +64,7 @@ keymapV("p", "P")
 -- INSERT MODE --
 -----------------
 
--- esc is just so far way...
+-- esc is just so far away...
 keymapI("jk", "<ESC>")
 
 -------------------
