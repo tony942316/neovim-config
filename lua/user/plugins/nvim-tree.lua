@@ -19,6 +19,7 @@ return {
         })
 
         keymapN("<leader>e", "<cmd>NvimTreeToggle<CR>")
+        keymapN("<S-e>", "<cmd>NvimTreeFocus<CR>")
 
         vim.api.nvim_create_user_command("EQXBufN",
             function()
@@ -28,17 +29,7 @@ return {
                     vim.cmd("bnext")
                 end
             end, {})
-        -- No Idea Why This Doesn't Work
-        vim.api.nvim_create_user_command("EQXBufP",
-            function()
-                if vim.bo.filetype == "NvimTree" then
-                    vim.cmd("wincmd l")
-                else
-                    vim.cmd("bprevious")
-                end
-            end, {})
         keymapN("<S-l>", ":EQXBufN<CR>")
-        keymapN("<S-h>", ":EQXBufP<CR>")
 
         -- Other Cmds See Functionality On Github
         --vim.keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>")
