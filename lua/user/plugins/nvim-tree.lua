@@ -15,11 +15,48 @@ return {
 
         nvimtree.setup({
             view = { width = 40 },
-            git = { ignore = false }
+            git = { ignore = false },
+            renderer = {
+                icons = {
+                    glyphs = {
+                        default = "",
+                        symlink = "",
+                        folder = {
+                            arrow_open = "",
+                            arrow_closed = "",
+                            default = "",
+                            open = "",
+                            empty = "",
+                            empty_open = "",
+                            symlink = "",
+                            symlink_open = ""
+                        },
+                        git = {
+                            unstaged = "",
+                            staged = "S",
+                            unmerged = "",
+                            renamed = "➜",
+                            untracked = "U",
+                            deleted = "",
+                            ignored = "◌"
+                        }
+                    }
+                }
+            },
+            diagnostics = {
+                enable = true,
+                show_on_dirs = true,
+                icons = {
+                    hint = "󰌵",
+                    info = "",
+                    warning = "",
+                    error = ""
+                }
+            },
         })
 
-        keymapN("<leader>e", "<cmd>NvimTreeToggle<CR>")
-        keymapN("<S-e>", "<cmd>NvimTreeFocus<CR>")
+        KeymapN("<leader>e", "<cmd>NvimTreeToggle<CR>")
+        KeymapN("<S-e>", "<cmd>NvimTreeFocus<CR>")
 
         vim.api.nvim_create_user_command("EQXBufN",
             function()
@@ -29,7 +66,7 @@ return {
                     vim.cmd("bnext")
                 end
             end, {})
-        keymapN("<S-l>", ":EQXBufN<CR>")
+        KeymapN("<S-l>", ":EQXBufN<CR>")
 
         -- Other Cmds See Functionality On Github
         --vim.keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>")

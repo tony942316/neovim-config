@@ -5,16 +5,16 @@ local opts = {
 }
 
 -- vim.keymap.set(.....) too long ain't got time for that
-keymapN = function(new, old)
+KeymapN = function(new, old)
     vim.keymap.set("n", new, old, opts)
 end
-keymapI = function(new, old)
+KeymapI = function(new, old)
     vim.keymap.set("i", new, old, opts)
 end
-keymapV = function(new, old)
+KeymapV = function(new, old)
     vim.keymap.set("v", new, old, opts)
 end
-keymapT = function(new, old)
+KeymapT = function(new, old)
     vim.keymap.set("t", new, old, opts)
 end
 
@@ -26,59 +26,51 @@ vim.g.mapleader = " "                               -- space is a good leader
 -----------------
 
 -- Window Navigation
-keymapN("<C-h>", "<C-w>h")                          -- left
-keymapN("<C-j>", "<C-w>j")                          -- down
-keymapN("<C-k>", "<C-w>k")                          -- up
-keymapN("<C-l>", "<C-w>l")                          -- right
+KeymapN("<C-h>", "<C-w>h")                          -- left
+KeymapN("<C-j>", "<C-w>j")                          -- down
+KeymapN("<C-k>", "<C-w>k")                          -- up
+KeymapN("<C-l>", "<C-w>l")                          -- right
 
 -- Buffer Navigation
-keymapN("<S-l>", ":bnext<CR>")
-keymapN("<S-h>", ":bprevious<CR>")
-keymapN("<S-q>", "<cmd>Bdelete!<CR>")
+KeymapN("<S-l>", ":bnext<CR>")
+KeymapN("<S-h>", ":bprevious<CR>")
+KeymapN("<S-q>", "<cmd>Bdelete!<CR>")
 
 -- Window Resizing
-keymapN("<C-Up>", ":resize -2<CR>")
-keymapN("<C-Down>", ":resize +2<CR>")
-keymapN("<C-Left>", ":vertical resize -2<CR>")
-keymapN("<C-Right>", ":vertical resize +2<CR>")
+KeymapN("<C-Up>", ":resize -2<CR>")
+KeymapN("<C-Down>", ":resize +2<CR>")
+KeymapN("<C-Left>", ":vertical resize -2<CR>")
+KeymapN("<C-Right>", ":vertical resize +2<CR>")
 
 -- give me a terminal
-keymapN("<leader>t", ":terminal<CR>")
+KeymapN("<leader>t", ":terminal<CR>")
 
 -- Quick Save
-keymapN("<leader>s", "<cmd>w<CR>")
-keymapN("<leader>q", "<cmd>NvimTreeClose<CR><cmd>wq<CR>")
+KeymapN("<leader>s", "<cmd>w<CR>")
+KeymapN("<leader>q", "<cmd>wq<CR>")
+vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
 
 -----------------
 -- VISUAL MODE --
 -----------------
 
 -- why would "<" exit visual mode?
-keymapV("<", "<gv")
-keymapV(">", ">gv")
+KeymapV("<", "<gv")
+KeymapV(">", ">gv")
 
 -- when pasting overwrites your clipboard...
-keymapV("p", "P")
+KeymapV("p", "P")
 
 -----------------
 -- INSERT MODE --
 -----------------
 
 -- esc is just so far away...
-keymapI("jk", "<ESC>")
+KeymapI("jk", "<ESC>")
 
 -------------------
 -- TERMINAL MODE --
 -------------------
 
 -- some of these maps are just crazy
-keymapT("jk", "<C-\\><C-N>")
-
----------------
--- TELESCOPE --
----------------
-
-keymapN("<leader>ff", ":Telescope find_files<CR>")
-keymapN("<leader>ft", ":Telescope live_grep<CR>")
-keymapN("<leader>fp", ":Telescope projects<CR>")
-keymapN("<leader>fb", ":Telescope buffers<CR>")
+KeymapT("jk", "<C-\\><C-N>")
