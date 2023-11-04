@@ -25,6 +25,11 @@ return {
 
         local capabilities = cmp_nvim_lsp.default_capabilities()
 
+        lspconfig["clangd"].setup({
+            capabilities = capabilities,
+            on_attach = on_attach
+        })
+
         lspconfig["cmake"].setup({
             capabilities = capabilities,
             on_attach = on_attach,

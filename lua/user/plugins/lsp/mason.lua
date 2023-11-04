@@ -22,7 +22,8 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "cmake",
-                "bashls"
+                "bashls",
+                "clangd"
             },
 
             automatic_installation = true
