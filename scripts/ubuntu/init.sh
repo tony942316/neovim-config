@@ -13,6 +13,9 @@ cd $HOME
 ./build-CMake.sh
 
 cd $HOME
+./build-llvm.sh
+
+cd $HOME
 ./build-neovim.sh
 
 cd $HOME

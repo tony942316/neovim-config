@@ -43,7 +43,10 @@ return {
 
         lspconfig["bashls"].setup({
             capabilities = capabilities,
-            on_attach = on_attach
+            on_attach = on_attach,
+            root_dir = function(_)
+                return vim.loop.cwd()
+            end
         })
 
         lspconfig["lua_ls"].setup({

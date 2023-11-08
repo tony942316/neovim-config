@@ -10,5 +10,9 @@ return {
     {
         "rose-pine/neovim",
         priority = 1000
+    },
+    {
+        "lunarvim/darkplus.nvim",
+        priority = 1000
     }
 }
