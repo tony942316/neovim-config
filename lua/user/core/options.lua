@@ -29,7 +29,7 @@ vim.opt.scrolloff = 8               -- keep 8 lines above and below the cusor
 vim.opt.sidescrolloff = 8           -- same for horizontal
 vim.opt.fillchars.eob = " "         -- ~ for end of buffer
 vim.opt.ruler = false               -- lualine takes care of this
-vim.opt.colorcolumn = "80"          -- horizontal scrolling is rude
+vim.opt.colorcolumn = "81"          -- horizontal scrolling is rude
 
 -- Searching
 vim.opt.incsearch = true            -- partial search while typing
