@@ -5,8 +5,8 @@
 function install_dependencies
 {
     # Update System
-    sudo apt update
-    sudo apt upgrade
+    sudo apt update -y
+    sudo apt upgrade -y
 
     # Get Dependencies
     sudo apt install -y gcc git make zip unzip curl tree bzip2 libssl-dev \
@@ -28,6 +28,7 @@ function setup_filesystem
     mkdir -p $HOME/OSS/builds/gcc-13
     mkdir -p $HOME/OSS/builds/cmake-3.28
     mkdir -p $HOME/OSS/builds/neovim-0.9
+    mkdir -p $HOME/OSS/builds/llvm-17
 
     # Configure Git
     git config --global init.defaultBranch main
@@ -92,7 +93,35 @@ function build_cmake
 
 function build_llvm
 {
-    echo "Not Implemented!"
+    # Ensure Proper PATH
+    export PATH=$HOME/.local/bin/:$PATH
+
+    # CLone llvm
+    cd $HOME
+    git clone https://github.com/llvm/llvm-project $HOME/OSS/repos/llvm
+
+    # Set Release Branch
+    cd $HOME/OSS/repos/llvm-project
+    git switch release/17.x
+
+    # Configure llvm
+    cd $HOME/OSS/repos/llvm-project
+    mkdir build
+    cmake -S llvm -B build -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/home/anthony/OSS/builds/llvm-17 \
+        -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra"
+
+    # Build llvm
+    cd $HOME/OSS/repos/llvm-project/build
+    make -j4
+
+    # Install llvm
+    cd $HOME/OSS/repos/llvm-project/build
+    make install
+
+    # Create Symlink
+    cd $HOME/.local/bin
+    ln -s $HOME/OSS/builds/llvm-17/bin/clang++ clang++-17
 }
 
 function build_neovim
