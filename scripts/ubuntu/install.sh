@@ -98,7 +98,7 @@ function build_llvm
 
     # CLone llvm
     cd $HOME
-    git clone https://github.com/llvm/llvm-project $HOME/OSS/repos/llvm
+    git clone https://github.com/llvm/llvm-project $HOME/OSS/repos/llvm-project
 
     # Set Release Branch
     cd $HOME/OSS/repos/llvm-project
