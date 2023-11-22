@@ -153,6 +153,10 @@ function build_neovim
     # Pull Custom Config
     cd $HOME
     git clone https://github.com/tony942316/neovim-config.git $HOME/.config/nvim
+
+    # Set Repo To SSH
+    cd $HOME/.config/nvim
+    git remote set-url origin git@github.com:tony942316/neovim-config.git
 }
 
 function init
