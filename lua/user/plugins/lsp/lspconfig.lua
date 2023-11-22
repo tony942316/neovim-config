@@ -28,7 +28,7 @@ return {
         lspconfig["clangd"].setup({
             capabilities = capabilities,
             on_attach = on_attach
-            -- cmd = { os.getenv("HOME") .. "/OSS/repos/llvm-project/build/bin/clangd" }
+            -- cmd = { os.getenv("HOME") .. "/OSS/builds/llvm-17/bin/clangd" }
         })
 
         lspconfig["cmake"].setup({
