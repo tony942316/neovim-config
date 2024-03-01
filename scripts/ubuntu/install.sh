@@ -4,10 +4,6 @@
 
 function install_dependencies
 {
-    # Update System
-    sudo apt update -y
-    sudo apt upgrade -y
-
     # Get Dependencies
     sudo apt install -y gcc git make zip unzip curl tree bzip2 libssl-dev \
         ninja-build gettext flex ripgrep python3.10-venv npm
@@ -26,7 +22,7 @@ function setup_filesystem
     mkdir -p $HOME/OSS/repos
     mkdir -p $HOME/OSS/builds
     mkdir -p $HOME/OSS/builds/gcc-13
-    mkdir -p $HOME/OSS/builds/cmake-3.28
+    mkdir -p $HOME/OSS/builds/cmake-3.29
     mkdir -p $HOME/OSS/builds/neovim-0.9
     mkdir -p $HOME/OSS/builds/llvm-17
 
@@ -79,16 +75,16 @@ function build_cmake
     git switch release
 
     # Bootstrap CMake
-    cd $HOME/OSS/builds/cmake-3.28
+    cd $HOME/OSS/builds/cmake-3.29
     $HOME/OSS/repos/CMake/bootstrap
 
     # Build CMake
-    cd $HOME/OSS/builds/cmake-3.28
+    cd $HOME/OSS/builds/cmake-3.29
     make
 
     # Create Symlink
     cd $HOME/.local/bin
-    ln -s $HOME/OSS/builds/cmake-3.28/bin/cmake cmake
+    ln -s $HOME/OSS/builds/cmake-3.29/bin/cmake cmake
 }
 
 function build_llvm
