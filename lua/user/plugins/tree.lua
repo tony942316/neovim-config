@@ -13,7 +13,22 @@ return {
         -- Set Color Of Arrows To Light Blue
         vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
 
+        local function my_on_attach(bufnr)
+            local api = require("nvim-tree.api")
+            local function opts(desc)
+                return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+            end
+
+            api.config.mappings.default_on_attach(bufnr)
+
+            vim.keymap.del("n", "<S-l>", { buffer = bufnr })
+            vim.keymap.set("n", "<S-l>", "<cmd>wincmd l<CR>", opts("Return"))
+
+            vim.keymap.set("n", "?", api.tree.toggle_help, opts("Help"))
+        end
+
         nvimtree.setup({
+            on_attach = my_on_attach,
             view = { width = 40 },
             git = { ignore = false },
             renderer = {
@@ -57,20 +72,5 @@ return {
 
         KeymapN("<leader>e", "<cmd>NvimTreeToggle<CR>")
         KeymapN("<S-e>", "<cmd>NvimTreeFocus<CR>")
-
-        vim.api.nvim_create_user_command("EQXBufN",
-            function()
-                if vim.bo.filetype == "NvimTree" then
-                    vim.cmd("wincmd l")
-                else
-                    vim.cmd("bnext")
-                end
-            end, {})
-        KeymapN("<S-l>", ":EQXBufN<CR>")
-
-        -- Other Cmds See Functionality On Github
-        --vim.keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>")
-        --vim.keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>")
-        --vim.keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>")
     end
 }
