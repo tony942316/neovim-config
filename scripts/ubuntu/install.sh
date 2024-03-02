@@ -6,7 +6,7 @@ function install_dependencies
 {
     # Get Dependencies
     sudo apt install -y gcc git make zip unzip curl tree bzip2 libssl-dev \
-        ninja-build gettext flex ripgrep python3.10-venv npm
+        gettext flex ripgrep python3.10-venv npm
 
     # Update Node To Latest Stable
     sudo npm cache clean -f
@@ -23,6 +23,7 @@ function setup_filesystem
     mkdir -p $HOME/OSS/builds
     mkdir -p $HOME/OSS/builds/gcc-13
     mkdir -p $HOME/OSS/builds/cmake-3.29
+    mkdir -p $HOME/OSS/builds/ninja-1.11
     mkdir -p $HOME/OSS/builds/neovim-0.9
     mkdir -p $HOME/OSS/builds/llvm-17
 
@@ -87,6 +88,32 @@ function build_cmake
     ln -s $HOME/OSS/builds/cmake-3.29/bin/cmake cmake
 }
 
+function build_ninja
+{
+    # Ensure Proper PATH
+    export PATH=$HOME/.local/bin/:$PATH
+
+    # Clone ninja
+    cd $HOME
+    git clone https://github.com/ninja-build/ninja $HOME/OSS/repos/ninja-1.11
+
+    # Set Release Branch
+    cd $HOME/OSS/repos/ninja
+    git switch release
+
+    # Configure ninja
+    cd $HOME/OSS/builds/ninja-1.11
+    cmake -S $HOME/OSS/repos/ninja -B .
+
+    # Build ninja
+    cd $HOME/OSS/builds/ninja-1.11
+    cmake --build . -j4
+
+    # Create Symlink
+    cd $HOME/.local/bin
+    ln -s $HOME/OSS/builds/ninja-1.11/ninja ninja
+}
+
 function build_llvm
 {
     # Ensure Proper PATH
@@ -98,7 +125,7 @@ function build_llvm
 
     # Set Release Branch
     cd $HOME/OSS/repos/llvm-project
-    git switch release/17.x
+    git checkout llvmorg-17.0.3
 
     # Configure llvm
     cd $HOME/OSS/repos/llvm-project
@@ -115,9 +142,10 @@ function build_llvm
     cd $HOME/OSS/repos/llvm-project/build
     make install
 
-    # Create Symlink
+    # Create Symlinks
     cd $HOME/.local/bin
     ln -s $HOME/OSS/builds/llvm-17/bin/clang++ clang++-17
+    ln -s $HOME/OSS/builds/llvm-17/bin/clang clang-17
 }
 
 function build_neovim
@@ -135,7 +163,7 @@ function build_neovim
 
     # Build Nvim
     cd $HOME/OSS/repos/neovim
-    make CMAKE_BUILD_TYPE=RelWithDebInfo \
+    make CMAKE_BUILD_TYPE=Release \
         CMAKE_INSTALL_PREFIX=$HOME/OSS/builds/neovim-0.9
 
     # Install Nvim
@@ -168,6 +196,9 @@ function init
 
     cd $HOME
     build_cmake
+
+    cd $HOME
+    build_ninja
 
     cd $HOME
     build_llvm
