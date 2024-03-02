@@ -95,15 +95,16 @@ function build_ninja
 
     # Clone ninja
     cd $HOME
-    git clone https://github.com/ninja-build/ninja $HOME/OSS/repos/ninja-1.11
+    git clone https://github.com/ninja-build/ninja-1.11 \
+        $HOME/OSS/repos/ninja-1.11
 
     # Set Release Branch
-    cd $HOME/OSS/repos/ninja
+    cd $HOME/OSS/repos/ninja-1.11
     git switch release
 
     # Configure ninja
     cd $HOME/OSS/builds/ninja-1.11
-    cmake -S $HOME/OSS/repos/ninja -B .
+    cmake -S $HOME/OSS/repos/ninja-1.11 -B .
 
     # Build ninja
     cd $HOME/OSS/builds/ninja-1.11
