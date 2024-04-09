@@ -95,7 +95,7 @@ function build_ninja
 
     # Clone ninja
     cd $HOME
-    git clone https://github.com/ninja-build/ninja-1.11 \
+    git clone https://github.com/ninja-build/ninja \
         $HOME/OSS/repos/ninja-1.11
 
     # Set Release Branch
