@@ -21,6 +21,12 @@ return {
 
             opts.desc = "Restart LSP"
             vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
+
+            opts.desc = "Goto Declaration"
+            vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
+
+            opts.desc = "Goto Definition"
+            vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
         end
 
         local capabilities = cmp_nvim_lsp.default_capabilities()
@@ -28,7 +34,6 @@ return {
         lspconfig["clangd"].setup({
             capabilities = capabilities,
             on_attach = on_attach
-            -- cmd = { os.getenv("HOME") .. "/OSS/builds/llvm-17/bin/clangd" }
         })
 
         lspconfig["cmake"].setup({

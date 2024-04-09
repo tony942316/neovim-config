@@ -25,7 +25,7 @@ function setup_filesystem
     mkdir -p $HOME/OSS/builds/cmake-3.29
     mkdir -p $HOME/OSS/builds/ninja-1.11
     mkdir -p $HOME/OSS/builds/neovim-0.9
-    mkdir -p $HOME/OSS/builds/llvm-17
+    mkdir -p $HOME/OSS/builds/llvm-18
 
     # Configure Git
     git config --global init.defaultBranch main
@@ -126,14 +126,14 @@ function build_llvm
 
     # Set Release Branch
     cd $HOME/OSS/repos/llvm-project
-    git checkout llvmorg-17.0.3
+    git switch release/18.x
 
     # Configure llvm
     cd $HOME/OSS/repos/llvm-project
     mkdir build
     cmake -S llvm -B build -DCMAKE_BUILD_TYPE=Release \
-        -DCMAKE_INSTALL_PREFIX=/home/anthony/OSS/builds/llvm-17 \
-        -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra"
+        -DCMAKE_INSTALL_PREFIX=/home/anthony/OSS/builds/llvm-18 \
+        -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;compiler-rt"
 
     # Build llvm
     cd $HOME/OSS/repos/llvm-project/build
@@ -145,8 +145,9 @@ function build_llvm
 
     # Create Symlinks
     cd $HOME/.local/bin
-    ln -s $HOME/OSS/builds/llvm-17/bin/clang++ clang++-17
-    ln -s $HOME/OSS/builds/llvm-17/bin/clang clang-17
+    ln -s $HOME/OSS/builds/llvm-18/bin/clang++ clang++-18
+    ln -s $HOME/OSS/builds/llvm-18/bin/clang clang-18
+    ln -s $HOME/OSS/builds/llvm-18/bin/clangd clangd
 }
 
 function build_neovim
