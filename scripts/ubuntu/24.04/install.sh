@@ -2,7 +2,7 @@
 
 # Get Dependencies
 sudo apt install -y gcc g++ gcc-14 g++-14 git make ninja-build clang zip unzip \
-    curl tree ripgrep python3-venv npm cmake neovim clangd
+    curl tree ripgrep python3-venv npm cmake neovim clangd clang-tools
 
 mkdir $HOME/.config
 
