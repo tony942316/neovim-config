@@ -1,1 +1,1 @@
-require("profiles.full")
+require("core.all")
